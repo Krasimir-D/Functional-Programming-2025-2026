@@ -29,3 +29,36 @@ myTake n list
     | otherwise = head list : myTake (n - 1) (tail list)
 
 
+--"reverse". That's a function that just takes a list and reverses it
+myReverse :: [a] -> [a]
+myReverse [] = []
+myReverse (x:xs) = myReverse xs ++ [x]
+
+--haskell supports infinite lists and that's why our recursion over lists doesn't really have to have an edge case.
+--however, the result of such recursion would either result in in a endless recursion or an infinite list. The good thing
+--about infinite lists, however is that we can easily just cut out a desired number of elements from that list
+myRepeat :: a -> [a]
+myRepeat x = x : myRepeat x
+
+--"zip" takes two lists and produces a list of pairs. The first coordinate is always the element at a given n-th of the left list
+--and the second coordinate is always the n-th element of the right list
+--"zip" always cuts the longer list, so if we try to zip a list with an empty list, we'll get the empty list and there's our edge case
+myZip :: [a] -> [b] -> [(a,b)]
+myZip _ [] = []
+myZip [] _ = []
+myZip (x:xs) (y:ys) = (x,y) : myZip xs ys
+
+--"elem" takes an element and a lists and checks whether that element is in the list
+myElem :: (Eq a) => a -> [a] -> Bool
+myElem _ [] = False
+myElem a (x:xs)
+    | a == x = True
+    | otherwise = myElem a xs
+
+--quicksort
+myQuicksort :: (Ord a) => [a] -> [a]
+myQuicksort [] = []
+myQuicksort (x:xs) =
+    let smallerSorted = myQuicksort [a | a <- xs, a <= x]
+        biggerSorted = myQuicksort [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
