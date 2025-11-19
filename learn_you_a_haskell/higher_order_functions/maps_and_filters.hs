@@ -55,3 +55,5 @@ myQuicksort (x:xs) =
     where 
         smallerList = myQuicksort (filter (<= x) xs)
         biggerList = myQuicksort (filter (> x) xs)
+
+--"takeWhile" takes a predicate and list and returns elements while they satisfy the predicate. We want
