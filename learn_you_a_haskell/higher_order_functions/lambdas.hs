@@ -9,3 +9,20 @@
 
 ghci> zipWith (\a b -> (a * 30 + 3) / b) [5,4,3,2,1] [1,2,3,4,5]
 [153.0,61.5,31.0,15.75,6.6]
+
+--you can pattern match in lambdas, like with any functions. However you can't define several patterns for one parameter, like making
+--a [] and then (x:xs) pattern for the same parameter. If pattern matching fails in lambda functions, a runtime error occurs.
+
+map (\(a,b) -> a + b) [(1,2),(3,5),(6,3),(2,6),(2,5)]
+[3,8,9,8,7]
+
+--we usually put lambdas in parenthesis, unless we want them to extend all the way to the right.
+--Here's something interesting: Due to the ways functions are normally curried the following two
+--functions are equivalent:
+
+addThree :: (Num a) => a -> a -> a -> a
+addThree x y z = x + y + z
+
+AND
+
+addThree = \x -> \y -> \z -> x + y + z
