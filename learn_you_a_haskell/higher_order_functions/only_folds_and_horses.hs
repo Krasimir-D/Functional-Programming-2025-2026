@@ -32,8 +32,13 @@ elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys
 --This order makes sense since we're folding the list from right to left.
 
 --The accumulator value can be of any type. It can be a number,a boolean or even a new list. We'll be implementing the "map" function with a right fold. We use foldr instead
---of foldl because this is the signature of "map": map :: (a -> b) -> [a] -> [b]. The binary function in map takes an element from the list argument of map first. In foldr the first parameter
---of the binary function is an element of the list that we're folding.
+--of foldl because the ":: is much cheaper than the "++" operation.
 
 map' :: (a -> b) -> [a] -> [b]
 map' f xs = foldr (\x acc -> f x : acc) [] xs
+
+--The biggest difference between foldr and foldl is that foldr works on infinite lists, whereas left fold does not.
+
+--"foldl1" and "foldr1" are pretty much the same, but with one exception. They don't need you to provide an accumator. Instead, they take the first(last) element of the list as a starting
+--value for the accumulator. There's one caveat with this approach, however. These two functions assume that the list has at least one element, and therefore produce runtime errors when fed
+--with empty lists.
