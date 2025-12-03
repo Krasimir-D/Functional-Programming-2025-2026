@@ -26,3 +26,10 @@ addThree x y z = x + y + z
 AND
 
 addThree = \x -> \y -> \z -> x + y + z
+
+--the first notation is far more readable and the second one is pretty much a gimmick to illustrate currying
+--However, there are times when using this notations is cool. One good example would be the "flip" function.
+
+flip' :: (a -> b -> c) -> b -> a -> c
+flip' f = \x y -> f y x
+
