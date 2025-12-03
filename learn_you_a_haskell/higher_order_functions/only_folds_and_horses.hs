@@ -27,3 +27,13 @@ elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys
 --sense to start with a False. We assume the value is not present in the list. Also, if we call foldl on an empty list, the result will just be the starting value.
 --Then we check if the current element is the value we're looking for. If it is, we set the accumulator to True. If it's not we just leave the value of the accumulator unchanged.
 
+--the right fold function "foldr" works in the exact same way, only it folds a list starting from its last element and folding towards its head.
+--Another difference of foldr is the binary function takes the current tail of the list as its left argument and the accumulator as its right, opposed to the case with foldl.
+--This order makes sense since we're folding the list from right to left.
+
+--The accumulator value can be of any type. It can be a number,a boolean or even a new list. We'll be implementing the "map" function with a right fold. We use foldr instead
+--of foldl because this is the signature of "map": map :: (a -> b) -> [a] -> [b]. The binary function in map takes an element from the list argument of map first. In foldr the first parameter
+--of the binary function is an element of the list that we're folding.
+
+map' :: (a -> b) -> [a] -> [b]
+map' f xs = foldr (\x acc -> f x : acc) [] xs
